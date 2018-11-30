@@ -6,6 +6,7 @@ import { Property } from '../propery.model';
   templateUrl: './property-list.component.html',
   styleUrls: ['./property-list.component.css']
 })
+// Manages a list of properties
 export class PropertyListComponent implements OnInit {
   properties: Property[] = [
     new Property("username", "Name of the user", "k001234"),

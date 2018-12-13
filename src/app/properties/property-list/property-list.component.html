@@ -6,12 +6,10 @@
 <hr>
 <div class="row">
   <div class="col-xs-12">
-    <a href="#" class="list-group-item clearfix" *ngFor="let property of properties"  >
-      <div class="pull-left">
-        <h4 class="list-group-item-heading">{{ property.name }}</h4>
-        <p class="list-group-item-text">{{ property.description }}</p>
-      </div>
-    </a>
-    <app-property-item></app-property-item>
+    <app-property-item 
+      *ngFor="let propertyElement of properties"
+      [property] = "propertyElement"
+      (propertySelected)="onPropertySelected(propertyElement)">
+    </app-property-item>
   </div>
 </div>

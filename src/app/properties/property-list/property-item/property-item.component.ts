@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
+
+import { Property } from '../../propery.model';
 
 @Component({
   selector: 'app-property-item',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PropertyItemComponent implements OnInit {
 
+  @Input() property: Property;
+  @Output() propertySelected = new EventEmitter<void>();
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  onSelected() {
+    this.propertySelected.emit();
+  }
 }

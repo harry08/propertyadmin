@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Property } from './propery.model';
 
 @Component({
   selector: 'app-properties',
@@ -8,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
 // Overall component holding the list on the left and the detail on the right.
 export class PropertiesComponent implements OnInit {
 
+  selectedProperty : Property
+
   constructor() { }
 
   ngOnInit() {
   }
-
 }

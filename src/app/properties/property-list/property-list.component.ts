@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Property } from '../propery.model';
 
 @Component({
@@ -8,6 +8,9 @@ import { Property } from '../propery.model';
 })
 // Manages a list of properties
 export class PropertyListComponent implements OnInit {
+
+  @Output() propertyWasSelected = new EventEmitter<Property>();
+  
   properties: Property[] = [
     new Property("username", "Name of the user", "k001234"),
     new Property("outputpath", "Path to output folder", "./test/output"),
@@ -17,6 +20,10 @@ export class PropertyListComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onPropertySelected(property: Property) {
+    this.propertyWasSelected.emit(property);
   }
 
 }

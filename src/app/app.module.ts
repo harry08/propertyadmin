@@ -9,6 +9,7 @@ import { PropertiesComponent } from './properties/properties.component';
 import { PropertyListComponent } from './properties/property-list/property-list.component';
 import { PropertyDetailComponent } from './properties/property-detail/property-detail.component';
 import { PropertyItemComponent } from './properties/property-list/property-item/property-item.component';
+import { DropdownDirective } from './shared/dropdown.directive';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PropertyItemComponent } from './properties/property-list/property-item/
     PropertiesComponent,
     PropertyListComponent,
     PropertyDetailComponent,
-    PropertyItemComponent
+    PropertyItemComponent,
+    DropdownDirective
   ],
   imports: [
     BrowserModule,

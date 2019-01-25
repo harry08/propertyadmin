@@ -10,6 +10,8 @@ import { PropertyListComponent } from './properties/property-list/property-list.
 import { PropertyDetailComponent } from './properties/property-detail/property-detail.component';
 import { PropertyItemComponent } from './properties/property-list/property-item/property-item.component';
 import { DropdownDirective } from './shared/dropdown.directive';
+import { AppRoutingModule } from './app.routing.module';
+import { NamespacesComponent } from './namespaces/Namespaces.component';
 
 @NgModule({
   declarations: [
@@ -19,12 +21,14 @@ import { DropdownDirective } from './shared/dropdown.directive';
     PropertyListComponent,
     PropertyDetailComponent,
     PropertyItemComponent,
+    NamespacesComponent,
     DropdownDirective
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

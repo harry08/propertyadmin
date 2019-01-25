@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Input, Output } from '@angular/core';
 
 import { Property } from '../../propery.model';
+import { PropertyService } from '../../property.service';
 
 @Component({
   selector: 'app-property-item',
@@ -10,14 +11,16 @@ import { Property } from '../../propery.model';
 export class PropertyItemComponent implements OnInit {
 
   @Input() property: Property;
-  @Output() propertySelected = new EventEmitter<void>();
-
-  constructor() { }
+  
+  constructor(private propertyService: PropertyService) { }
 
   ngOnInit() {
   }
 
+  // Called from property-item.component.html when this property is selected.
   onSelected() {
-    this.propertySelected.emit();
+    // Sets the selected property in the PropertyService. 
+    // The PropertyService takes care of throwing the events for the selected property.
+    this.propertyService.propertySelected.emit(this.property);
   }
 }

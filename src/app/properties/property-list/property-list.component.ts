@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Property } from '../propery.model';
+import { PropertyService } from '../property.service';
 
 @Component({
   selector: 'app-property-list',
@@ -9,21 +10,12 @@ import { Property } from '../propery.model';
 // Manages a list of properties
 export class PropertyListComponent implements OnInit {
 
-  @Output() propertyWasSelected = new EventEmitter<Property>();
-  
-  properties: Property[] = [
-    new Property("username", "Name of the user", "k001234"),
-    new Property("outputpath", "Path to output folder", "./test/output"),
-    new Property("inputfile", "Path to input file", "./test/test.csv")
-  ];
+  properties: Property[];
 
-  constructor() { }
+  constructor(private propertyService: PropertyService) {
+  }
 
   ngOnInit() {
+    this.properties = this.propertyService.getProperties();  
   }
-
-  onPropertySelected(property: Property) {
-    this.propertyWasSelected.emit(property);
-  }
-
 }

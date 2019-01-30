@@ -4,7 +4,7 @@ import { Namespace } from "./namespace.model";
 @Injectable()
 export class NamespaceService {
 
-    propertySelected = new EventEmitter<Namespace>();
+    namespaceSelected = new EventEmitter<Namespace>();
     
     private namespaces : Namespace[] = [
         new Namespace("Common", "Common namespace"),

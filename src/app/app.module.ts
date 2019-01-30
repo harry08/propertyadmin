@@ -11,7 +11,7 @@ import { PropertyDetailComponent } from './properties/property-detail/property-d
 import { PropertyItemComponent } from './properties/property-list/property-item/property-item.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { AppRoutingModule } from './app.routing.module';
-import { NamespacesComponent } from './namespaces/Namespaces.component';
+import { NamespacesComponent } from './namespaces/namespaces.component';
 
 @NgModule({
   declarations: [

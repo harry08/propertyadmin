@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';
 
 import { PropertiesComponent } from './properties/properties.component';
-import { NamespacesComponent } from './namespaces/Namespaces.component';
+import { NamespacesComponent } from './namespaces/namespaces.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/properties', pathMatch: 'full' },

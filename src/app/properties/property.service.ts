@@ -21,4 +21,8 @@ export class PropertyService {
         // slice returns a new array which is an exact copy.
         return this.properties.slice();
     }
+
+    getProperty(id: number) : Property {
+        return this.properties[id];
+    }
 }

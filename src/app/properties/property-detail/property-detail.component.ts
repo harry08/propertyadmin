@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Property } from '../propery.model';
 import { PropertyService } from '../property.service';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-property-detail',
@@ -9,11 +10,22 @@ import { PropertyService } from '../property.service';
 })
 export class PropertyDetailComponent implements OnInit {
 
-  @Input() property: Property;
+  property: Property;
+  id: number;
 
-  constructor(private propertyService: PropertyService) { }
+  constructor(private propertyService: PropertyService,
+              private route: ActivatedRoute) { 
+  }
 
   ngOnInit() {
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          // + casts the String to a number
+          this.id = +params['id'];
+          this.property = this.propertyService.getProperty(this.id);
+        }
+      );
   }
 
 }

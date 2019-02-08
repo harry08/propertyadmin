@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { Property } from '../propery.model';
 import { PropertyService } from '../property.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-property-list',
@@ -12,10 +13,16 @@ export class PropertyListComponent implements OnInit {
 
   properties: Property[];
 
-  constructor(private propertyService: PropertyService) {
+  constructor(private propertyService: PropertyService,
+              private router: Router,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit() {
     this.properties = this.propertyService.getProperties();  
+  }
+
+  onNewProperty() {
+    this.router.navigate(['new'], {relativeTo: this.route});
   }
 }

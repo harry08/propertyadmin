@@ -13,6 +13,7 @@ import { PropertyStartComponent } from './properties/property-start/property-sta
 import { DropdownDirective } from './shared/dropdown.directive';
 import { AppRoutingModule } from './app.routing.module';
 import { NamespacesComponent } from './namespaces/namespaces.component';
+import { PropertyEditComponent } from './properties/property-edit/property-edit.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { NamespacesComponent } from './namespaces/namespaces.component';
     PropertyItemComponent,
     PropertyStartComponent,
     NamespacesComponent,
-    DropdownDirective
+    DropdownDirective,
+    PropertyEditComponent
   ],
   imports: [
     BrowserModule,

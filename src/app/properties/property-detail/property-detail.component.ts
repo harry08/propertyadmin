@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Property } from '../propery.model';
 import { PropertyService } from '../property.service';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-property-detail',
@@ -14,7 +14,8 @@ export class PropertyDetailComponent implements OnInit {
   id: number;
 
   constructor(private propertyService: PropertyService,
-              private route: ActivatedRoute) { 
+              private route: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -28,4 +29,7 @@ export class PropertyDetailComponent implements OnInit {
       );
   }
 
+  onEditProperty() {
+    this.router.navigate(['edit'], {relativeTo: this.route});
+  }
 }

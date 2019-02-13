@@ -1,11 +1,12 @@
 import { Injectable, EventEmitter } from "@angular/core";
+import { Subject } from 'rxjs';
 import { Property } from "./propery.model";
 
 @Injectable()
 export class PropertyService {
 
-    propertySelected = new EventEmitter<Property>();
-    
+    propertiesChanged = new Subject();
+
     private properties : Property[] = [
         new Property("username", "Name of the batch user", "k001234"),
         new Property("password", "Password for the batch user", "274hrz4"),
@@ -24,5 +25,20 @@ export class PropertyService {
 
     getProperty(id: number) : Property {
         return this.properties[id];
+    }
+
+    addProperty(property: Property) {
+        this.properties.push(property);
+        this.propertiesChanged.next(this.properties.slice());
+    }
+
+    updateProperty(index: number, newProperty: Property) {
+        this.properties[index] = newProperty;
+        this.propertiesChanged.next(this.properties.slice());
+    }
+
+    deleteProperty(index: number) {
+        this.properties.splice(index, 1);
+        this.propertiesChanged.next(this.properties.slice());
     }
 }

@@ -4,7 +4,9 @@ import { PropertyService } from "../properties/property.service";
 import { Property } from "../properties/propery.model";
 
 /**
- * Stores data in a firebase database.
+ * Stores data in the firebase database ng-propertyadmin
+ * Link to firebase console:
+ * https://console.firebase.google.com/project/ng-propertyadmin/database/ng-propertyadmin/data
  */
 @Injectable()
 export class DataStorageService {

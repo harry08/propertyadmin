@@ -23,6 +23,11 @@ export class PropertyService {
         return this.properties.slice();
     }
 
+    setProperties(properties: Property[]) {
+        this.properties = properties;
+        this.propertiesChanged.next(this.properties.slice());
+    }
+
     getProperty(id: number) : Property {
         return this.properties[id];
     }

@@ -19,4 +19,9 @@ export class HeaderComponent {
                 }
             );
     }
+
+    onFetchData() {
+        console.log('HeaderComponent.onFetchData called...');#
+        this.dataStorageService.getProperties();
+    }
 }

@@ -3,7 +3,6 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
 import { PropertyService } from '../property.service';
 import { Property } from '../propery.model';
-import { relative } from 'path';
 
 @Component({
   selector: 'app-property-edit',
@@ -56,12 +55,11 @@ export class PropertyEditComponent implements OnInit {
     let propertyDescription = '';
     let propertyValue = '';
 
-    if (this.editMode {
+    if (this.editMode) {
       const property = this.propertyService.getProperty(this.id);
       propertyName = property.name;
       propertyDescription = property.description;
       propertyValue = property.value;
-
     }
 
     this.propertyForm = new FormGroup({

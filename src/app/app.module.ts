@@ -15,6 +15,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { NamespacesComponent } from './namespaces/namespaces.component';
 import { PropertyEditComponent } from './properties/property-edit/property-edit.component';
 import { PropertyService } from './properties/property.service';
+import { DataStorageService } from './shared/data-storage.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { PropertyService } from './properties/property.service';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [PropertyService],
+  providers: [PropertyService, DataStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

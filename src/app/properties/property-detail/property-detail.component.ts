@@ -22,6 +22,8 @@ export class PropertyDetailComponent implements OnInit {
     this.route.params
       .subscribe(
         (params: Params) => {
+          console.log('PropertyDetailComponent.ngOnInit: ' + params);
+          
           // + casts the String to a number
           this.id = +params['id'];
           this.property = this.propertyService.getProperty(this.id);

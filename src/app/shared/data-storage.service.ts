@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
 import { PropertyService } from "../properties/property.service";
 import { Property } from "../properties/propery.model";
+import { AuthService } from "../auth/auth.service";
 
 /**
  * Stores data in the firebase database ng-propertyadmin
@@ -11,19 +12,39 @@ import { Property } from "../properties/propery.model";
 @Injectable()
 export class DataStorageService {
 
-    constructor(private http: Http, private propertyService: PropertyService) {}
+    constructor(
+        private http: Http, 
+        private propertyService: PropertyService,
+        private authService: AuthService) {}
 
     storeProperties() {
-        return this.http.put('https://ng-propertyadmin.firebaseio.com/properties.json', this.propertyService.getProperties());
+        const token = this.authService.getToken();
+        
+        return this.http.put('https://ng-propertyadmin.firebaseio.com/properties.json?auth=' + token, this.propertyService.getProperties());
     }
 
     getProperties() {
-        this.http.get('https://ng-propertyadmin.firebaseio.com/properties.json')
+        const token = this.authService.getToken();
+
+        this.http.get('https://ng-propertyadmin.firebaseio.com/properties.json?auth=' + token)
             .subscribe(
                 (response: Response) => {
-                    const properties: Property[] = response.json();
+                    let properties = new Array<Property>();
+                    const readProperties: Property[] = response.json();
+                    
+                    for (let readProperty of readProperties) {
+                        if (readProperty && readProperty.name) {
+                            const property = new Property(
+                                readProperty.name, 
+                                readProperty.description, 
+                                readProperty.value
+                            );
+                            properties.push(property);
+                        } 
+                    }
+                    
                     this.propertyService.setProperties(properties);
-                }
+                  }   
             );
     }
 }

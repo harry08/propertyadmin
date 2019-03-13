@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="col-xs-12">
+      <div class="btn btn-success" (click)="onNewNamespace()">New Namespace</div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-xs-12">
+      <app-namespace-item 
+        *ngFor="let namespaceElement of namespaces; let i = index"
+        [namespace] = "namespaceElement"
+        [index]="i">
+      </app-namespace-item>
+    </div>
+  </div>
+  

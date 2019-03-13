@@ -10,16 +10,20 @@ import { PropertyListComponent } from './properties/property-list/property-list.
 import { PropertyDetailComponent } from './properties/property-detail/property-detail.component';
 import { PropertyItemComponent } from './properties/property-list/property-item/property-item.component';
 import { PropertyStartComponent } from './properties/property-start/property-start.component';
+import { NamespaceListComponent } from './namespaces/namespace-list/namespace-list.component';
+import { NamespaceItemComponent } from './namespaces/namespace-list/namespace-item/namespace-item.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { AppRoutingModule } from './app.routing.module';
 import { NamespacesComponent } from './namespaces/namespaces.component';
 import { PropertyEditComponent } from './properties/property-edit/property-edit.component';
 import { PropertyService } from './properties/property.service';
+import { NamespaceService } from './namespaces/namespace.service';
 import { DataStorageService } from './shared/data-storage.service';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
+import { NamespaceStartComponent } from './namespaces/namespace-start/namespace-start.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +35,9 @@ import { AuthGuard } from './auth/auth-guard.service';
     PropertyItemComponent,
     PropertyStartComponent,
     NamespacesComponent,
+    NamespaceListComponent,
+    NamespaceItemComponent,
+    NamespaceStartComponent,
     DropdownDirective,
     PropertyEditComponent,
     SignupComponent,
@@ -43,7 +50,7 @@ import { AuthGuard } from './auth/auth-guard.service';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [PropertyService, DataStorageService, AuthService, AuthGuard],
+  providers: [PropertyService, NamespaceService, DataStorageService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

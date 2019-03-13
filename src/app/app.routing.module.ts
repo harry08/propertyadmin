@@ -2,10 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';
 
 import { PropertiesComponent } from './properties/properties.component';
-import { NamespacesComponent } from './namespaces/namespaces.component';
 import { PropertyStartComponent } from './properties/property-start/property-start.component';
 import { PropertyDetailComponent } from './properties/property-detail/property-detail.component';
 import { PropertyEditComponent } from './properties/property-edit/property-edit.component';
+import { NamespacesComponent } from './namespaces/namespaces.component';
+import { NamespaceStartComponent } from './namespaces/namespace-start/namespace-start.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AuthGuard } from './auth/auth-guard.service';
@@ -18,7 +19,9 @@ const appRoutes: Routes = [
         { path: ':id', component: PropertyDetailComponent },
         { path: ':id/edit', component: PropertyEditComponent, canActivate: [AuthGuard] }
     ] },
-    { path: 'namespaces', component: NamespacesComponent },
+    { path: 'namespaces', component: NamespacesComponent, children: [
+        { path: '', component: NamespaceStartComponent }
+    ] },    
     { path: 'signup', component: SignupComponent },
     { path: 'signin', component: SigninComponent }
 ]

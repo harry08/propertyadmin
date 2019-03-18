@@ -36,7 +36,7 @@ export class NamespaceService {
         this.namespacesChanged.next(this.namespaces.slice());
     }
 
-    updatePNamespace(index: number, newNamespace: Namespace) {
+    updateNamespace(index: number, newNamespace: Namespace) {
         this.namespaces[index] = newNamespace;
         this.namespacesChanged.next(this.namespaces.slice());
     }

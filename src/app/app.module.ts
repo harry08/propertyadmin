@@ -11,7 +11,10 @@ import { PropertyDetailComponent } from './properties/property-detail/property-d
 import { PropertyItemComponent } from './properties/property-list/property-item/property-item.component';
 import { PropertyStartComponent } from './properties/property-start/property-start.component';
 import { NamespaceListComponent } from './namespaces/namespace-list/namespace-list.component';
+import { NamespaceDetailComponent } from './namespaces/namespace-detail/namespace-detail.component';
 import { NamespaceItemComponent } from './namespaces/namespace-list/namespace-item/namespace-item.component';
+import { NamespaceStartComponent } from './namespaces/namespace-start/namespace-start.component';
+import { NamespaceEditComponent } from './namespaces/namespace-edit/namespace-edit.component';
 import { DropdownDirective } from './shared/dropdown.directive';
 import { AppRoutingModule } from './app.routing.module';
 import { NamespacesComponent } from './namespaces/namespaces.component';
@@ -23,7 +26,6 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AuthService } from './auth/auth.service';
 import { AuthGuard } from './auth/auth-guard.service';
-import { NamespaceStartComponent } from './namespaces/namespace-start/namespace-start.component';
 
 @NgModule({
   declarations: [
@@ -36,8 +38,10 @@ import { NamespaceStartComponent } from './namespaces/namespace-start/namespace-
     PropertyStartComponent,
     NamespacesComponent,
     NamespaceListComponent,
+    NamespaceDetailComponent,
     NamespaceItemComponent,
     NamespaceStartComponent,
+    NamespaceEditComponent,
     DropdownDirective,
     PropertyEditComponent,
     SignupComponent,

@@ -3,6 +3,8 @@ import { Http, Response } from "@angular/http";
 import { PropertyService } from "../properties/property.service";
 import { Property } from "../properties/propery.model";
 import { AuthService } from "../auth/auth.service";
+import { NamespaceService } from "../namespaces/namespace.service";
+import { Namespace } from "../namespaces/namespace.model";
 
 /**
  * Stores data in the firebase database ng-propertyadmin
@@ -10,17 +12,21 @@ import { AuthService } from "../auth/auth.service";
  * https://console.firebase.google.com/project/ng-propertyadmin/database/ng-propertyadmin/data
  */
 @Injectable()
-export class DataStorageService {
+export class DataStorageFirebaseService {
 
     constructor(
         private http: Http, 
         private propertyService: PropertyService,
         private authService: AuthService) {}
 
-    storeProperties() {
+    storeData() {
         const token = this.authService.getToken();
         
         return this.http.put('https://ng-propertyadmin.firebaseio.com/properties.json?auth=' + token, this.propertyService.getProperties());
+    }
+
+    getData() {
+        this.getProperties();
     }
 
     getProperties() {
@@ -44,7 +50,7 @@ export class DataStorageService {
                     }
                     
                     this.propertyService.setProperties(properties);
-                  }   
+                }   
             );
     }
 }

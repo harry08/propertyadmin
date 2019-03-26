@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { DataStorageService } from "../shared/data-storage.service";
+import { DataStorageFirebaseService } from "../shared/data-storage-firebase.service";
 import { Response } from "@angular/http";
 import { AuthService } from "../auth/auth.service";
 
@@ -10,12 +10,12 @@ import { AuthService } from "../auth/auth.service";
 export class HeaderComponent {
 
     constructor(
-        private dataStorageService: DataStorageService,
+        private dataStorageService: DataStorageFirebaseService,
         private authService: AuthService) {}
 
     onSaveData() {
         console.log('HeaderComponent.onSaveData called...');
-        this.dataStorageService.storeProperties()
+        this.dataStorageService.storeData()
             .subscribe(
                 (response: Response) => {
                     console.log(response);
@@ -25,7 +25,7 @@ export class HeaderComponent {
 
     onFetchData() {
         console.log('HeaderComponent.onFetchData called...');
-        this.dataStorageService.getProperties();
+        this.dataStorageService.getData();
     }
 
     onLogout() {

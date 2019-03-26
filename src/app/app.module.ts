@@ -21,7 +21,7 @@ import { NamespacesComponent } from './namespaces/namespaces.component';
 import { PropertyEditComponent } from './properties/property-edit/property-edit.component';
 import { PropertyService } from './properties/property.service';
 import { NamespaceService } from './namespaces/namespace.service';
-import { DataStorageService } from './shared/data-storage.service';
+import { DataStorageFirebaseService } from './shared/data-storage-firebase.service';
 import { SignupComponent } from './auth/signup/signup.component';
 import { SigninComponent } from './auth/signin/signin.component';
 import { AuthService } from './auth/auth.service';
@@ -54,7 +54,7 @@ import { AuthGuard } from './auth/auth-guard.service';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [PropertyService, NamespaceService, DataStorageService, AuthService, AuthGuard],
+  providers: [PropertyService, NamespaceService, DataStorageFirebaseService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

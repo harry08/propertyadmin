@@ -4,20 +4,25 @@ import { Property } from "./propery.model";
 import { Http, Response } from '@angular/http';
 import { Headers, RequestOptions } from '@angular/http';
 import { map } from "rxjs/operators";
+import { Namespace } from "./namespace.model";
 
 /**
- * Offers CRUD functionalitsy for Properties.
+ * Offers CRUD functionalitsy for Properties and Namespaces.
  * DataStorage via Json-Server is done here.
  */
 @Injectable()
 export class PropertyService {
 
     propertiesChanged = new Subject();
+    namespacesChanged = new Subject();
 
     private properties : Property[] = [];
 
+    private namespaces : Namespace[] = [];
+
     constructor(private http: Http) {
         this.loadProperties();
+        this.loadNamespaces();
     }
 
     loadProperties() {
@@ -29,14 +34,14 @@ export class PropertyService {
             });
     }
 
+    private setProperties(properties: Property[]) {
+        this.properties = properties;
+        this.propertiesChanged.next(this.properties.slice());
+    }
+
     getProperties() : Property[] {
         // slice returns a new array which is an exact copy.
         return this.properties.slice();
-    }
-
-    setProperties(properties: Property[]) {
-        this.properties = properties;
-        this.propertiesChanged.next(this.properties.slice());
     }
 
     getProperty(id: number) : Property {
@@ -77,9 +82,67 @@ export class PropertyService {
             });
     }
 
+    loadNamespaces() {
+        console.log('PropertyService load all namespaces...');
+        this.readAllNamespaces()
+            .subscribe(namespaces => {
+                console.log('Nr of read namespaces: ' + namespaces.length);
+                this.setNamespaces(namespaces);
+            });
+    }
+
+    private setNamespaces(namespaces: Namespace[]) {
+        this.namespaces = namespaces;
+        this.namespacesChanged.next(this.namespaces.slice());
+    }
+
+    getNamespaces() : Namespace[] {
+        // slice returns a new array which is an exact copy.
+        return this.namespaces.slice();
+    }
+
+    getNamespace(id: number) : Namespace {
+        return this.namespaces[id];
+    }
+
+    addNamespace(namespace: Namespace) {
+        console.log('add new namespace: ' + namespace.name);
+        this.storeNewNamespace(namespace)
+            .subscribe(namespace => {
+                console.log('Namespace added: ' + namespace.name + ', id: ' + namespace.id);
+
+                this.namespaces.push(namespace);
+                this.namespacesChanged.next(this.namespaces.slice());
+            });
+    }
+
+    updateNamespace(index: number, namespace: Namespace) {
+        console.log('update namespace with id: ' + namespace.id);    
+        this.storeNamespace(namespace)
+            .subscribe(updatedNamespace => {
+                console.log('Namespace with id ' + updatedNamespace.id + ' updated. Name: ' + updatedNamespace.name);
+
+                this.namespaces[index] = updatedNamespace;
+                this.namespacesChanged.next(this.namespaces.slice());
+            });
+    }
+
+    deleteNamespace(index: number) {
+        console.log('delete namespace with index: ' + index);
+        let namespace = this.namespaces[index];
+        this.removeNamespace(namespace)
+            .subscribe(value => {
+                console.log('Namespace removed'); 
+
+                this.namespaces.splice(index, 1);
+                this.namespacesChanged.next(this.namespaces.slice());
+            });
+    }
+
     // ***** Http functions *****
 
     url = 'http://localhost:3000/properties';
+    urlNamespaces = 'http://localhost:3000/namespaces';
 
     private readAllProperties() : Observable<Property[]>{
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -106,6 +169,34 @@ export class PropertyService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         return this.http.delete(this.url + '/' + property.id, options)
+            .pipe(map(this.extractData));
+    }
+
+    private readAllNamespaces() : Observable<Namespace[]>{
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get(this.urlNamespaces, options)
+            .pipe(map(res => res.json()))
+    }
+
+    private storeNewNamespace(namespace: Namespace): Observable<Namespace> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(this.urlNamespaces, namespace, options)
+            .pipe(map(this.extractData));
+    }
+
+    private storeNamespace(namespace: Namespace): Observable<Namespace> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.put(this.urlNamespaces + '/' + namespace.id, namespace, options)
+            .pipe(map(this.extractData));
+    }
+
+    private removeNamespace(namespace: Namespace) : Observable<Namespace> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.delete(this.urlNamespaces + '/' + namespace.id, options)
             .pipe(map(this.extractData));
     }
 

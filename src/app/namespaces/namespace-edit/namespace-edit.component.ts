@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { FormGroup, FormControl } from '@angular/forms';
-import { NamespaceService } from '../namespace.service';
-import { Namespace } from '../namespace.model';
+import { PropertyService } from 'src/app/properties/property.service';
 
 @Component({
   selector: 'app-namespace-edit',
@@ -16,7 +15,7 @@ export class NamespaceEditComponent implements OnInit {
   namespaceForm: FormGroup
 
   constructor(private route: ActivatedRoute,
-              private namespaceService: NamespaceService,
+              private propertyService: PropertyService,
               private router: Router) { }
 
   ngOnInit() {
@@ -37,9 +36,9 @@ export class NamespaceEditComponent implements OnInit {
       // of the form like
       // const newNamespace = new Namespace(this.namespaceForm.value['name'], ...);
       // Pass this object then to the service
-      this.namespaceService.updateNamespace(this.id, this.namespaceForm.value);
+      this.propertyService.updateNamespace(this.id, this.namespaceForm.value);
     } else {
-      this.namespaceService.addNamespace(this.namespaceForm.value);
+      this.propertyService.addNamespace(this.namespaceForm.value);
     }
 
     // To navigate
@@ -51,16 +50,19 @@ export class NamespaceEditComponent implements OnInit {
   }
 
   private initForm() {
+    let namespaceId = '';
     let namespaceName = '';
     let namespaceDescription = '';
 
     if (this.editMode) {
-      const namespace = this.namespaceService.getNamespace(this.id);
+      const namespace = this.propertyService.getNamespace(this.id);
+      namespaceId = namespace.id;
       namespaceName = namespace.name;
       namespaceDescription = namespace.description;
     }
 
     this.namespaceForm = new FormGroup({
+      'id': new FormControl(namespaceId),
       'name': new FormControl(namespaceName),
       'description': new FormControl(namespaceDescription)
     });

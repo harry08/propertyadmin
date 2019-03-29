@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Namespace } from '../namespace.model';
-import { NamespaceService } from '../namespace.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Namespace } from 'src/app/properties/namespace.model';
+import { PropertyService } from 'src/app/properties/property.service';
 
 @Component({
   selector: 'app-namespace-detail',
@@ -13,7 +13,7 @@ export class NamespaceDetailComponent implements OnInit {
   namespace: Namespace;
   id: number;
 
-  constructor(private namespaceService: NamespaceService,
+  constructor(private propertyService: PropertyService,
               private route: ActivatedRoute,
               private router: Router) {
   }
@@ -26,7 +26,7 @@ export class NamespaceDetailComponent implements OnInit {
           
           // + casts the String to a number
           this.id = +params['id'];
-          this.namespace = this.namespaceService.getNamespace(this.id);
+          this.namespace = this.propertyService.getNamespace(this.id);
         }
       );
   }
@@ -36,7 +36,7 @@ export class NamespaceDetailComponent implements OnInit {
   }
 
   onDeleteNamespace() {
-    this.namespaceService.deleteNamespace(this.id);
+    this.propertyService.deleteNamespace(this.id);
     this.router.navigate(['/namespaces']);
   }
 }

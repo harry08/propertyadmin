@@ -17,19 +17,15 @@ const appRoutes: Routes = [
     { path: '', redirectTo: '/properties', pathMatch: 'full' },
     { path: 'properties', component: PropertiesComponent, children: [
         { path: '', component: PropertyStartComponent },
-        //{ path: 'new', component: PropertyEditComponent, canActivate: [AuthGuard] },
         { path: 'new', component: PropertyEditComponent },
         { path: ':id', component: PropertyDetailComponent },
-        //{ path: ':id/edit', component: PropertyEditComponent, canActivate: [AuthGuard] }
         { path: ':id/edit', component: PropertyEditComponent }
     ] },
     { path: 'namespaces', component: NamespacesComponent, children: [
         { path: '', component: NamespaceStartComponent },
-        //{ path: 'new', component: NamespaceEditComponent, canActivate: [AuthGuard] },
         { path: 'new', component: NamespaceEditComponent },
         { path: ':id', component: NamespaceDetailComponent },
-        //{ path: ':id/edit', component: NamespaceEditComponent, canActivate: [AuthGuard] }
-        { path: ':id/edit', component: NamespaceEditComponent, canActivate: [AuthGuard] }
+        { path: ':id/edit', component: NamespaceEditComponent }
     ] },    
     { path: 'signup', component: SignupComponent },
     { path: 'signin', component: SigninComponent }

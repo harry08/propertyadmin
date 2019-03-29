@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Namespace } from 'src/app/properties/namespace.model';
 
-import { Namespace } from '../../namespace.model';
 
 @Component({
   selector: 'app-namespace-item',

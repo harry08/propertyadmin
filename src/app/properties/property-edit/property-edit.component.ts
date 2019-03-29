@@ -51,18 +51,21 @@ export class PropertyEditComponent implements OnInit {
   }
 
   private initForm() {
+    let propertyId = '';
     let propertyName = '';
     let propertyDescription = '';
     let propertyValue = '';
 
     if (this.editMode) {
       const property = this.propertyService.getProperty(this.id);
+      propertyId = property.id;
       propertyName = property.name;
       propertyDescription = property.description;
       propertyValue = property.value;
     }
 
     this.propertyForm = new FormGroup({
+      'id': new FormControl(propertyId),
       'name': new FormControl(propertyName),
       'description': new FormControl(propertyDescription),
       'value': new FormControl(propertyValue)

@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy, Input} from '@angular/core';
 import { Property } from '../propery.model';
 import { PropertyService } from '../property.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Namespace } from '../namespace.model';
 
 @Component({
   selector: 'app-property-list',
@@ -12,8 +13,14 @@ import { Subscription } from 'rxjs';
 // Manages a list of properties
 export class PropertyListComponent implements OnInit, OnDestroy {
 
+  selectedNamespace: Namespace;
+
   properties: Property[];
-  subscription: Subscription;
+  allNamespaces: Namespace[];
+  
+  propertiesSubscription: Subscription;
+
+  namespacesSubscription: Subscription;
 
   constructor(private propertyService: PropertyService,
               private router: Router,
@@ -21,21 +28,44 @@ export class PropertyListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // Subscribes as a listener for changes in the Property Service
-    this.subscription = this.propertyService.propertiesChanged
+    this.properties = this.propertyService.getProperties();  
+    this.propertiesSubscription = this.propertyService.propertiesChanged
       .subscribe(
         (properties: Property[]) => {
           this.properties = properties;
         }
       );
-    this.properties = this.propertyService.getProperties();  
+
+    this.allNamespaces = this.propertyService.getNamespaces(); 
+    this.namespacesSubscription = this.propertyService.namespacesChanged
+        .subscribe(
+          (namespaces: Namespace[]) => {
+            console.log('Propertylist as listener to changed namespaces.')
+            this.allNamespaces = namespaces;  
+            this.selectDefaultNamespace();
+          }
+        );
+    this.selectDefaultNamespace();    
+  }
+
+  selectDefaultNamespace() {
+    if (this.allNamespaces.length > 0 && this.selectedNamespace == undefined) {
+      this.selectedNamespace = this.allNamespaces[0];
+      this.onSelectNamespace();
+    }
   }
 
   onNewProperty() {
     this.router.navigate(['new'], {relativeTo: this.route});
   }
 
+  onSelectNamespace() {
+    console.log('Namespace changed to: ' + this.selectedNamespace.name + ', id: ' + this.selectedNamespace.id);
+    this.propertyService.setSelectedNamespace(this.selectedNamespace);
+  }
+
   ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.propertiesSubscription.unsubscribe();
+    this.namespacesSubscription.unsubscribe();
   }
 }

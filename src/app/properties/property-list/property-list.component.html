@@ -1,4 +1,16 @@
 <div class="row">
+  <div class="col-xs-3">
+    Select Namespace:
+  </div>
+  <div class="col-xs-9">
+    <select name="namespace" [(ngModel)]="selectedNamespace" (change)="onSelectNamespace()">
+      <option *ngFor="let nms of allNamespaces" [ngValue]="nms">
+        {{ nms.name }}
+      </option>
+   </select>
+  </div>
+</div>
+<div class="row">
   <div class="col-xs-12">
     <div class="btn btn-success" (click)="onNewProperty()">New Property</div>
   </div>

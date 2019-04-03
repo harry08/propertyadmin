@@ -68,7 +68,7 @@ export class PropertyEditComponent implements OnInit {
       'id': new FormControl(propertyId),
       'name': new FormControl(propertyName),
       'description': new FormControl(propertyDescription),
-      'value': new FormControl(propertyValue)
+      'value': new FormControl(propertyValue),
     });
   }
 }

@@ -7,6 +7,8 @@ import { map } from "rxjs/operators";
 import { Namespace } from "./namespace.model";
 
 /**
+ * Holds data which is used in several components.
+ * 
  * Offers CRUD functionalitsy for Properties and Namespaces.
  * DataStorage via Json-Server is done here.
  */
@@ -20,18 +22,28 @@ export class PropertyService {
 
     private namespaces : Namespace[] = [];
 
+    /**
+     * Selected namespace for editing properties
+     */
+    private selectedNamespace : Namespace;
+
     constructor(private http: Http) {
-        this.loadProperties();
         this.loadNamespaces();
     }
 
-    loadProperties() {
-        console.log('PropertyService load all properties...');
-        this.readAllProperties()
-            .subscribe(properties => {
-                console.log('Nr of read properties: ' + properties.length);
-                this.setProperties(properties);
-            });
+    /**
+     * Sets the selected namespace 
+     * and Loads all properties of this namespace
+     * @param namespace namespace to select
+     */
+    setSelectedNamespace(namespace : Namespace) {
+        console.log('PropertyService load namespace ' + namespace.name + ' with associated properties...');
+        this.readNamespaceWithProperties(namespace)
+            .subscribe(namespace => {
+                console.log('Namespace found. Read properties');
+                this.selectedNamespace = namespace;
+                this.setProperties(this.selectedNamespace.properties);
+            });    
     }
 
     private setProperties(properties: Property[]) {
@@ -48,9 +60,12 @@ export class PropertyService {
         return this.properties[id];
     }
 
-    addProperty(property: Property) {
-        console.log('add new property: ' + property.name);
-        this.storeNewProperty(property)
+    addProperty(propertyData: Property) {
+        console.log('add new property: ' + propertyData.name + ' to namespace ' + this.selectedNamespace.name);
+        const propertyToStore = 
+            new Property(propertyData.id, propertyData.name, propertyData.description, propertyData.value, this.selectedNamespace.id);
+        
+        this.storeNewProperty(propertyToStore)
             .subscribe(property => {
                 console.log('Property added: ' + property.name + ', id: ' + property.id);
 
@@ -59,9 +74,11 @@ export class PropertyService {
             });
     }
 
-    updateProperty(index: number, property: Property) {
-        console.log('update property with id: ' + property.id);    
-        this.storeProperty(property)
+    updateProperty(index: number, propertyData: Property) {
+        console.log('update property with id: ' + propertyData.id);  
+        const propertyToStore = 
+            new Property(propertyData.id, propertyData.name, propertyData.description, propertyData.value, this.selectedNamespace.id);
+        this.storeProperty(propertyToStore)
             .subscribe(updatedProperty => {
                 console.log('Property with id ' + updatedProperty.id + ' updated. Name: ' + updatedProperty.name);
 
@@ -148,6 +165,13 @@ export class PropertyService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         return this.http.get(this.url, options)
+            .pipe(map(res => res.json()))
+    }
+
+    private readNamespaceWithProperties(namespace: Namespace) : Observable<Namespace> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.get(this.urlNamespaces + '/' + namespace.id + '?_embed=properties' , options)
             .pipe(map(res => res.json()))
     }
 

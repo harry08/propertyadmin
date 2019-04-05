@@ -20,10 +20,6 @@ import { AppRoutingModule } from './app.routing.module';
 import { NamespacesComponent } from './namespaces/namespaces.component';
 import { PropertyEditComponent } from './properties/property-edit/property-edit.component';
 import { PropertyService } from './properties/property.service';
-import { SignupComponent } from './auth/signup/signup.component';
-import { SigninComponent } from './auth/signin/signin.component';
-import { AuthService } from './auth/auth.service';
-import { AuthGuard } from './auth/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -42,8 +38,6 @@ import { AuthGuard } from './auth/auth-guard.service';
     NamespaceEditComponent,
     DropdownDirective,
     PropertyEditComponent,
-    SignupComponent,
-    SigninComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +46,7 @@ import { AuthGuard } from './auth/auth-guard.service';
     HttpModule,
     AppRoutingModule
   ],
-  providers: [PropertyService, AuthService, AuthGuard],
+  providers: [PropertyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -33,6 +33,8 @@ export class PropertyListComponent implements OnInit, OnDestroy {
       .subscribe(
         (properties: Property[]) => {
           this.properties = properties;
+          // Disselect any previeus selected property
+          this.router.navigate([''], {relativeTo: this.route});
         }
       );
 

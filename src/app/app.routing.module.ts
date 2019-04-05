@@ -9,9 +9,6 @@ import { NamespacesComponent } from './namespaces/namespaces.component';
 import { NamespaceStartComponent } from './namespaces/namespace-start/namespace-start.component';
 import { NamespaceDetailComponent } from './namespaces/namespace-detail/namespace-detail.component';
 import { NamespaceEditComponent } from './namespaces/namespace-edit/namespace-edit.component';
-import { SignupComponent } from './auth/signup/signup.component';
-import { SigninComponent } from './auth/signin/signin.component';
-import { AuthGuard } from './auth/auth-guard.service';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: '/properties', pathMatch: 'full' },
@@ -26,9 +23,7 @@ const appRoutes: Routes = [
         { path: 'new', component: NamespaceEditComponent },
         { path: ':id', component: NamespaceDetailComponent },
         { path: ':id/edit', component: NamespaceEditComponent }
-    ] },    
-    { path: 'signup', component: SignupComponent },
-    { path: 'signin', component: SigninComponent }
+    ] }
 ]
 
 @NgModule({
